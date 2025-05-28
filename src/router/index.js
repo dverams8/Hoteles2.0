@@ -5,7 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HotelesView from '../views/HotelesGrid.vue'
 import PlantasView from '../views/PlantasGrid.vue'
 import HabitacionesView from '../views/HabitacionesGrid.vue'
-
+// import PlantasCard from '../components/ui/PlantasCard.vue'
 
 const routes = [
   { path: '/', redirect: '/hoteles' },

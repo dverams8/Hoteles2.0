@@ -1,5 +1,4 @@
 <template>
-  <div></div>
   <div class="hotel-card">
     <div id="titulo">
        {{ name }}
