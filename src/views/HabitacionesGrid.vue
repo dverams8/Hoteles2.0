@@ -2,7 +2,7 @@
   <div class="container">
     <AppHeader />
     <SearchBar />
-
+    <router-link to="/hoteles/:hotelId">
     <div class="card-grid">
       <HotelCard
         v-for="hotel in hotels"
@@ -10,6 +10,7 @@
         v-bind="hotel"
       />
     </div>
+  </router-link>
   </div>
 </template>
 
@@ -23,23 +24,24 @@ export default {
   data() {
     return {
       hotels: [
-        { name: "Hotel 1", plants: 5, electric: "600 kW", water: "600 L", gas: "600 m³" },
-        { name: "Hotel 2", plants: 6, electric: "600 kW", water: "600 L", gas: "600 m³" },
-        { name: "Hotel 3", plants: 5, electric: "600 kW", water: "600 L", gas: "600 m³" },
-        { name: "Hotel 4", plants: 6, electric: "600 kW", water: "600 L", gas: "600 m³" },
-        { name: "Hotel 5", plants: 4, electric: "600 kW", water: "600 L", gas: "600 m³" },
-        { name: "Hotel 6", plants: 5, electric: "600 kW", water: "600 L", gas: "600 m³" },
-      ]
+        { name: "Planta 1", habitaciones: 5, ocupadas: 2, electricNow: "600kW", waterNow: "600 L", gasNow: "600 m³", electricMensual: "800 kW", waterMensual: "800 L", gasMensual: "800 m³" },
+        { name: "Planta 2", habitaciones: 6, ocupadas: 2, electricNow: "600kW", waterNow: "600 L", gasNow: "600 m³", electricMensual: "800 kW", waterMensual: "800 L", gasMensual: "800 m³" },
+        { name: "Planta 3", habitaciones: 5, ocupadas: 2, electricNow: "600kW", waterNow: "600 L", gasNow: "600 m³", electricMensual: "800 kW", waterMensual: "800 L", gasMensual: "800 m³" },
+        { name: "Planta 4", habitaciones: 6, ocupadas: 2, electricNow: "600kW", waterNow: "600 L", gasNow: "600 m³", electricMensual: "800 kW", waterMensual: "800 L", gasMensual: "800 m³" },
+        { name: "Planta 5", habitaciones: 4, ocupadas: 2, electricNow: "600kW", waterNow: "600 L", gasNow: "600 m³", electricMensual: "800 kW", waterMensual: "800 L", gasMensual: "800 m³" },
+        { name: "Planta 6", habitaciones: 5, ocupadas: 2, electricNow: "600kW", waterNow: "600 L", gasNow: "600 m³", electricMensual: "800 kW", waterMensual: "800 L", gasMensual: "800 m³" },
+      ] 
     }
   }
 }
 </script>
 
 <style scoped>
+
 .container {
   background-color: #2e285a;
   min-height: 100vh;
-  padding: 1rem;
+  width: 100%;
   color: white;
 }
 .card-grid {
