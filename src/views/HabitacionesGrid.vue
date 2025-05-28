@@ -4,10 +4,10 @@
     <SearchBar />
 
     <div class="card-grid">
-      <HotelCard
-        v-for="hotel in hotels"
-        :key="hotel.name"
-        v-bind="hotel"
+      <HabitacionesCard
+        v-for="habitacion in habitaciones"
+        :key="habitacion.nombre"
+        v-bind="habitacion"
       />
     </div>
   </div>
@@ -16,19 +16,19 @@
 <script>
 import AppHeader from '@/components/HeaderyComponentesAsi/AppHeader.vue'
 import SearchBar from '@/components/HeaderyComponentesAsi/SearchBar.vue'
-import HotelCard from '@/components/ui/HotelCard.vue'
+import HabitacionesCard from '@/components/ui/HabitacionesCard.vue'
 
 export default {
-  components: { AppHeader, SearchBar, HotelCard },
+  components: { AppHeader, SearchBar, HabitacionesCard },
   data() {
     return {
-      hotels: [
-        { name: "Hotel 1", plants: 5, electric: "600 kW", water: "600 L", gas: "600 m³" },
-        { name: "Hotel 2", plants: 6, electric: "600 kW", water: "600 L", gas: "600 m³" },
-        { name: "Hotel 3", plants: 5, electric: "600 kW", water: "600 L", gas: "600 m³" },
-        { name: "Hotel 4", plants: 6, electric: "600 kW", water: "600 L", gas: "600 m³" },
-        { name: "Hotel 5", plants: 4, electric: "600 kW", water: "600 L", gas: "600 m³" },
-        { name: "Hotel 6", plants: 5, electric: "600 kW", water: "600 L", gas: "600 m³" },
+      habitaciones: [
+        { nombre: "Habitación 101", estado: "Ocupada", luz: "600 kW", agua: "600 L", gas: "600 m³" },
+        { nombre: "Habitación 102", estado: "Disponible", luz: "600 kW", agua: "600 L", gas: "600 m³" },
+        { nombre: "Habitación 103", estado: "Disponible", luz: "600 kW", agua: "600 L", gas: "600 m³" },
+        { nombre: "Habitación 104", estado: "Disponible", luz: "600 kW", agua: "600 L", gas: "600 m³" },
+        { nombre: "Habitación 105", estado: "Disponible", luz: "600 kW", agua: "600 L", gas: "600 m³" },
+        { nombre: "Habitación 106", estado: "Disponible", luz: "600 kW", agua: "600 L", gas: "600 m³" },
       ]
     }
   }
