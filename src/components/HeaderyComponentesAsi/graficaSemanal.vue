@@ -31,7 +31,7 @@ onMounted(() => {
       trigger: 'axis',
     },
     legend: {
-      data: ['Agua', 'Gas', 'Electricidad'],
+      data: ['Electricidad', 'Agua', 'Gas'],
     },
     grid: {
       left: '3%',
@@ -119,13 +119,41 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 400px;
 }
+
 .selector-grafica {
   position: absolute;
   top: 16px;
   left: 16px;
   z-index: 10;
-  background: rgba(30, 30, 60, 0.7);
-  padding: 8px 12px;
-  border-radius: 8px;
+  background: rgba(44, 44, 84, 0.85);
+  padding: 0.75px 2px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.selector-grafica label {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.selector-grafica select {
+  background-color: #1c1c3b;
+  border: 1px solid #444;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.2s ease-in-out;
+  outline: none;
+}
+
+.selector-grafica option {
+  background-color: #1c1c3b;
+  color: #ffffff;
 }
 </style>

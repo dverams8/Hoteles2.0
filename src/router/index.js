@@ -22,7 +22,6 @@ const routes = [
   { path: '/mensual', name: 'graficaMensual', component: GraficaMensual },
   { path: '/semanal', name: 'graficaSemanal', component: GraficaSemanal },
   { path: '/diaria', name: 'graficaDiaria', component: GraficaDiaria },
-  { path: '/', redirect: '/mensual' }
 ]
 
 const router = createRouter({
