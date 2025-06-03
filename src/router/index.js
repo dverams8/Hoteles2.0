@@ -7,7 +7,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import PlantasView from '../views/PlantasGrid.vue'
 // import HabitacionesCard from '../components/ui/HabitacionesCard.vue'
 import HabitacionesView from '../views/HabitacionesGrid.vue'
-import graficaVue from '../components/HeaderyComponentesAsi/graficaVue.vue'
+import GraficaMensual from '@/components/HeaderyComponentesAsi/graficaMensual.vue'
+import GraficaSemanal from '@/components/HeaderyComponentesAsi/graficaSemanal.vue'
+import GraficaDiaria from '@/components/HeaderyComponentesAsi/graficaDiaria.vue'
 
 const routes = [
   { path: '/', redirect: '/hoteles'},
@@ -16,7 +18,11 @@ const routes = [
   { path: '/hoteles/:hotelId', name: 'Plantas', component: PlantasView},
   // { path: '/hoteles/:hotelId/plantas/:plantaId', name: 'Habitaciones', component: HabitacionesCard}
   { path: '/hoteles/:hotelId/plantas/:plantaId', name: 'Habitaciones', component: HabitacionesView },
-  {path: '/hoteles', name: 'Habitaciones', component: graficaVue}
+  {path: '/hoteles', name: 'Habitaciones', component: GraficaMensual},
+  { path: '/mensual', name: 'graficaMensual', component: GraficaMensual },
+  { path: '/semanal', name: 'graficaSemanal', component: GraficaSemanal },
+  { path: '/diaria', name: 'graficaDiaria', component: GraficaDiaria },
+  { path: '/', redirect: '/mensual' }
 ]
 
 const router = createRouter({
