@@ -1,18 +1,18 @@
-
 <template>
   <div class="container">
     <AppHeader />
     <SearchBar />
     <AppGridHoteles />
-    <router-link to="/hoteles/:hotelId">
     <div class="card-grid">
-      <HotelCard
+      <router-link
         v-for="hotel in hotels"
         :key="hotel.name"
-        v-bind="hotel"
-      />
+        :to="`/hoteles/${hotel.name}`"
+        style="text-decoration: none;"
+      >
+        <HotelCard v-bind="hotel" />
+      </router-link>
     </div>
-  </router-link>
   </div>
 </template>
 

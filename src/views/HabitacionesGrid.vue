@@ -2,7 +2,7 @@
   <div class="container">
     <AppHeader />
     <SearchBar />
-
+    <router-link to="/hoteles/:hotelId">
     <div class="card-grid">
       <HabitacionesCard
         v-for="habitacion in habitaciones"
@@ -10,6 +10,7 @@
         v-bind="habitacion"
       />
     </div>
+  </router-link>
   </div>
 </template>
 
@@ -22,24 +23,25 @@ export default {
   components: { AppHeader, SearchBar, HabitacionesCard },
   data() {
     return {
-      habitaciones: [
-        { nombre: "Habitación 101", estado: "Ocupada", luz: "600 kW", agua: "600 L", gas: "600 m³" },
-        { nombre: "Habitación 102", estado: "Disponible", luz: "600 kW", agua: "600 L", gas: "600 m³" },
-        { nombre: "Habitación 103", estado: "Disponible", luz: "600 kW", agua: "600 L", gas: "600 m³" },
-        { nombre: "Habitación 104", estado: "Disponible", luz: "600 kW", agua: "600 L", gas: "600 m³" },
-        { nombre: "Habitación 105", estado: "Disponible", luz: "600 kW", agua: "600 L", gas: "600 m³" },
-        { nombre: "Habitación 106", estado: "Disponible", luz: "600 kW", agua: "600 L", gas: "600 m³" },
-      ]
+      hotels: [
+        { name: "Planta 1", habitaciones: 5, ocupadas: 2, electricNow: "600kW", waterNow: "600 L", gasNow: "600 m³", electricMensual: "800 kW", waterMensual: "800 L", gasMensual: "800 m³" },
+        { name: "Planta 2", habitaciones: 6, ocupadas: 2, electricNow: "600kW", waterNow: "600 L", gasNow: "600 m³", electricMensual: "800 kW", waterMensual: "800 L", gasMensual: "800 m³" },
+        { name: "Planta 3", habitaciones: 5, ocupadas: 2, electricNow: "600kW", waterNow: "600 L", gasNow: "600 m³", electricMensual: "800 kW", waterMensual: "800 L", gasMensual: "800 m³" },
+        { name: "Planta 4", habitaciones: 6, ocupadas: 2, electricNow: "600kW", waterNow: "600 L", gasNow: "600 m³", electricMensual: "800 kW", waterMensual: "800 L", gasMensual: "800 m³" },
+        { name: "Planta 5", habitaciones: 4, ocupadas: 2, electricNow: "600kW", waterNow: "600 L", gasNow: "600 m³", electricMensual: "800 kW", waterMensual: "800 L", gasMensual: "800 m³" },
+        { name: "Planta 6", habitaciones: 5, ocupadas: 2, electricNow: "600kW", waterNow: "600 L", gasNow: "600 m³", electricMensual: "800 kW", waterMensual: "800 L", gasMensual: "800 m³" },
+      ] 
     }
   }
 }
 </script>
 
 <style scoped>
+
 .container {
   background-color: #2e285a;
   min-height: 100vh;
-  padding: 1rem;
+  width: 100%;
   color: white;
 }
 .card-grid {
