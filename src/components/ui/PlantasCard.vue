@@ -72,7 +72,7 @@
 
 <script>
 export default {
-    props: ['name', 'habitaciones', 'ocupadas', 'electricNow', 'waterNow', 'gasNow', 'electricMensual', 'wat', 'gasMensual'],
+    props: ['name', 'habitaciones', 'ocupadas', 'electricNow', 'waterNow', 'gasNow', 'electricMensual', 'waterMensual', 'gasMensual'],
 }
 </script>
 

@@ -4,9 +4,9 @@
     <div class="selector-grafica">
       <label for="tipoGrafica" style="color:white;margin-right:8px;">Tipo de gráfica:</label>
       <select id="tipoGrafica" v-model="tipoGrafica" @change="actualizarGrafica">
-        <option value="mensual">Mensual</option>
-        <option value="semanal">Semanal</option>
         <option value="diaria">Diaria</option>
+        <option value="semanal">Semanal</option>
+        <option value="mensual">Mensual</option>
       </select>
     </div>
     <div ref="chartContainer" style="width: 100%; height: 400px;"></div>

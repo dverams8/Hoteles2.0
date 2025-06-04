@@ -1,35 +1,38 @@
 <template>
   <div class="card">
     <div class="header">
-      <h1>{{ nombre }}</h1>
+      <h1>{{ name }}</h1>
       <div class="logo">Logo</div>
     </div>
 
     <div class="info">
       <div class="info-item">
         <i class="fa-solid fa-bolt"></i>
-        <p>Consumo eléctrico<br>{{luz}}</p>
+        <p>Consumo eléctrico<br>{{ luz }}</p>
       </div>
 
       <div class="info-item">
         <i class="fa-solid fa-droplet"></i>
-        <p>Consumo de agua<br>{{agua}}</p>
+        <p>Consumo de agua<br>{{ agua }}</p>
       </div>
 
       <div class="info-item">
         <i class="fa-solid fa-fire"></i>
-        <p>Consumo de gas</p>
-        <p>{{gas}}</p>
+        <p>Consumo de gas <br>{{ gas }}</p>
       </div>
 
       <div class="info-item ocupacion">
         <span class="dot"></span>
-        <p>Ocupación<br>{{estado}}</p>
+        <p>Ocupación</p>
+        <p>{{ estado }}</p>
       </div>
     </div>
 
     <div class="footer-icons">
-      <i class="fa-solid fa-chart-bar"></i>
+
+      <router-link :to="`/hoteles/${hotelId}/plantas/${plantaId}/diaria`">
+        <i class="fa-solid fa-chart-bar"></i>
+      </router-link>
       <i class="fa-solid fa-exclamation"></i>
       <i class="fa-solid fa-gear"></i>
     </div>
@@ -38,7 +41,7 @@
 
 <script>
 export default {
-  props: ['nombre', 'estado', 'luz', 'agua', 'gas'],
+  props: ['name', 'estado', 'luz', 'agua', 'gas', 'hotelId', 'plantaId'],
 }
 </script>
 
@@ -60,7 +63,7 @@ template {
   padding: 20px;
   width: 300px;
   color: white;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .header {
@@ -107,4 +110,8 @@ template {
   font-size: 20px;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}
 </style>
