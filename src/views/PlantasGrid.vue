@@ -1,18 +1,5 @@
 <template>
-  <div class="container">
-    <AppHeader />
-    <SearchBar />
-    <div class="card-grid">
-      <router-link
-        v-for="(planta, idx) in plantas"
-        :key="planta.name"
-        :to="`/hoteles/${$route.params.hotelId}/plantas/${idx + 1}`"
-        style="text-decoration: none;"
-      >
-        <PlantaCard v-bind="planta" />
-      </router-link>
-    </div>
-  </div>
+  <h1>hola</h1>
 </template>
 
 <script>

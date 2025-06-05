@@ -4,6 +4,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 // usa rutas relativas limpias
 import HotelesView from '../views/HotelesGrid.vue'
 import PlantasView from '../views/PlantasGrid.vue'
+import HabitacionesView from '../views/HabitacionesGrid.vue'
+// import PlantasCard from '../components/ui/PlantasCard.vue'
 // import HabitacionesView from '../views/HabitacionesGrid.vue'
 import AlertasCard from '../components/ui/AlertasCard.vue'
 // import PlantasCard from '../components/ui/PlantasCard.vue'
