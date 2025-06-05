@@ -2,26 +2,67 @@
 <template>
   <div class="grafica-wrapper">
     <div class="selector-grafica">
-      <label for="tipoGrafica" style="color:white;margin-right:8px;">Tipo de gráfica:</label>
-      <select id="tipoGrafica" v-model="tipoGrafica" @change="actualizarGrafica">
-        <option value="diaria">Diaria</option>
-        <option value="semanal">Semanal</option>
-        <option value="mensual">Mensual</option>
-      </select>
+      <label style="color:white;margin-right:8px;">
+        Tipo de gráfica: {{ labelGrafica }}
+      </label>
     </div>
     <div ref="chartContainer" style="width: 100%; height: 400px;"></div>
+  </div>
+  <div class="q-pa-md">
+    <div class="q-pb-sm">
+    </div>
+
+    <q-date v-model="days" range multiple />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import * as echarts from 'echarts'
+import { QDate } from 'quasar'
+
+
+const days = ref([
+  { from: '2025/06/01', to: '2025/06/10' },
+  { from: '2025/06/21', to: '2025/06/25' }
+])
 
 const chartContainer = ref(null)
 let myChart = null
-const tipoGrafica = ref('diaria')
 const router = useRouter()
+
+const totalDiasSeleccionados = computed(() => {
+  let total = 0
+  for (const range of days.value) {
+    const from = new Date(range.from.replace(/-/g, '/'))
+    const to = new Date(range.to.replace(/-/g, '/'))
+    total += Math.floor((to - from) / (1000 * 60 * 60 * 24)) + 1
+  }
+  return total
+})
+
+const labelGrafica = computed(() => {
+  if (totalDiasSeleccionados.value === 1) {
+    return 'Día'
+  } else if (totalDiasSeleccionados.value <= 7) {
+    return 'Semanal'
+  } else if (totalDiasSeleccionados.value > 7 && totalDiasSeleccionados.value <= 30) {
+    return 'Mensual'
+  } else {
+    return 'Anual'
+  }
+})
+
+watch(totalDiasSeleccionados, (nuevoValor) => {
+  if (nuevoValor === 1) {
+    router.push({ name: 'graficaDiaria' })
+  } else if (nuevoValor <= 7) {
+    router.push({ name: 'graficaSemanal' })
+  } else {
+    router.push({ name: 'graficaMensual' })
+  }
+})
 
 onMounted(() => {
   myChart = echarts.init(chartContainer.value, 'dark')
@@ -63,7 +104,7 @@ onMounted(() => {
         itemStyle: {
           color: '#2060be'
         }
-        
+
       },
       {
         name: 'Gas',
@@ -93,16 +134,6 @@ onMounted(() => {
   myChart.setOption(option)
   window.addEventListener('resize', myChart.resize)
 })
-
-function actualizarGrafica() {
-  if (tipoGrafica.value === 'mensual') {
-    router.push({ name: 'graficaMensual' })
-  } else if (tipoGrafica.value === 'semanal') {
-    router.push({ name: 'graficaSemanal' })
-  } else if (tipoGrafica.value === 'diaria') {
-    router.push({ name: 'graficaDiaria' })
-  }
-}
 
 onBeforeUnmount(() => {
   if (myChart) {
