@@ -7,9 +7,11 @@ import HabitacionesView from "../views/HabitacionesGrid.vue";
 import GraficaMensual from "@/components/HeaderyComponentesAsi/graficaMensual.vue";
 import GraficaSemanal from "@/components/HeaderyComponentesAsi/graficaSemanal.vue";
 import GraficaDiaria from "@/components/HeaderyComponentesAsi/graficaDiaria.vue";
+import GraficaPersonalizable from "@/components/HeaderyComponentesAsi/graficaPersonalizable.vue";
+import graficaVacia from "../components/HeaderyComponentesAsi/graficaVacia.vue";
 
 const routes = [
-  { path: "/", redirect: "/hoteles" },
+  { path: "/", redirect: "/custom" },
   { path: "/hoteles", name: "Hoteles", component: HotelesView },
   { path: "/hoteles/:hotelId", name: "Plantas", component: PlantasView },
   {
@@ -18,20 +20,30 @@ const routes = [
     component: HabitacionesView,
   },
   {
-    path: "/hoteles/:hotelId/plantas/:plantaId/mensual",
+    path: "/mensual",
     name: "graficaMensual",
     component: GraficaMensual,
   },
   {
-    path: "/hoteles/:hotelId/plantas/:plantaId/semanal",
+    path: "/semanal",
     name: "graficaSemanal",
     component: GraficaSemanal,
   },
   {
-    path: "/hoteles/:hotelId/plantas/:plantaId/diaria",
+    path: "/diaria",
     name: "graficaDiaria",
     component: GraficaDiaria,
   },
+  {
+    path: "/custom",
+    name: "graficacustom",
+    component: GraficaPersonalizable,
+  },
+  {
+    path: "/vacia",
+    name: "graficaVacia",
+    component: graficaVacia,
+  }
 ];
 
 const router = createRouter({
