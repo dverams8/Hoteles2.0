@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HotelesView from "../views/HotelesGrid.vue";
 import PlantasView from "../views/PlantasGrid.vue";
 import HabitacionesView from "../views/HabitacionesGrid.vue";
+import AlertasCard from "@/components/ui/AlertasCard.vue";
 import GraficaMensual from "@/components/HeaderyComponentesAsi/graficaMensual.vue";
 import GraficaSemanal from "@/components/HeaderyComponentesAsi/graficaSemanal.vue";
 import GraficaDiaria from "@/components/HeaderyComponentesAsi/graficaDiaria.vue";
@@ -17,6 +18,7 @@ const routes = [
     name: "Habitaciones",
     component: HabitacionesView,
   },
+  { path: "/hoteles/:hotelId/plantas/:plantaId/alertas", name: "Alertas", component: AlertasCard },
   {
     path: "/hoteles/:hotelId/plantas/:plantaId/mensual",
     name: "graficaMensual",

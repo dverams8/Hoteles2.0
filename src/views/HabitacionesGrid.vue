@@ -6,6 +6,7 @@
       <HabitacionesCard v-for="habitacion in habitaciones" :key="habitacion.name" v-bind="habitacion"
         :hotel-id="hotelId" :planta-id="plantaId" />
     </div>
+    <AlertasCard/>
   </div>
 </template>
 
@@ -13,10 +14,10 @@
 import AppHeader from '@/components/HeaderyComponentesAsi/AppHeader.vue'
 import SearchBar from '@/components/HeaderyComponentesAsi/SearchBar.vue'
 import HabitacionesCard from '@/components/ui/HabitacionesCard.vue'
-
+import AlertasCard from '../components/ui/AlertasCard.vue'
 
 export default {
-  components: { AppHeader, SearchBar, HabitacionesCard },
+  components: { AppHeader, SearchBar, HabitacionesCard, AlertasCard },
   data() {
     return {
       habitaciones: [

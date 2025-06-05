@@ -33,7 +33,9 @@
       <router-link :to="`/hoteles/${hotelId}/plantas/${plantaId}/diaria`">
         <i class="fa-solid fa-chart-bar"></i>
       </router-link>
-      <i class="fa-solid fa-exclamation"></i>
+      <router-link :to="`/hoteles/${hotelId}/plantas/${plantaId}/alertas`">
+        <i class="fa-solid fa-exclamation"></i>
+      </router-link>
       <i class="fa-solid fa-gear"></i>
     </div>
   </div>
