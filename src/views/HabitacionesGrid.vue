@@ -1,44 +1,61 @@
 <template>
-  <div class="container">
-    <AppHeader />
-    <SearchBar />
-    <div class="card-grid">
-      <HabitacionesCard v-for="habitacion in habitaciones" :key="habitacion.name" v-bind="habitacion"
-        :hotel-id="hotelId" :planta-id="plantaId" />
-    </div>
-    <AlertasCard/>
+  <div id="Alertas" ref="alertasDiv">
+    <AlertasCard @ocultarAlertaEvento="ocultarAlerta"/>
+  </div>
+  <div class="container" ref="ContenedorDiv">
+      <AppHeader />
+      <SearchBar />
+  
+      <div class="card-grid">
+        <HabitacionesCard v-for="habitacion in habitaciones" :key="habitacion.name" v-bind="habitacion"
+          :hotel-id="hotelId" :planta-id="plantaId" @mostrarAlertaEvento="mostrarAlerta" />
+      </div>
   </div>
 </template>
 
 <script>
-import AppHeader from '@/components/HeaderyComponentesAsi/AppHeader.vue'
-import SearchBar from '@/components/HeaderyComponentesAsi/SearchBar.vue'
-import HabitacionesCard from '@/components/ui/HabitacionesCard.vue'
-import AlertasCard from '../components/ui/AlertasCard.vue'
+  import AppHeader from '@/components/HeaderyComponentesAsi/AppHeader.vue'
+  import SearchBar from '@/components/HeaderyComponentesAsi/SearchBar.vue'
+  import HabitacionesCard from '@/components/ui/HabitacionesCard.vue'
+  import AlertasCard from '@/components/ui/AlertasCard.vue'
 
-export default {
-  components: { AppHeader, SearchBar, HabitacionesCard, AlertasCard },
-  data() {
-    return {
-      habitaciones: [
-        { name: "Habitación 1", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Ocupado" },
-        { name: "Habitación 2", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Ocupado" },
-        { name: "Habitación 3", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Ocupado" },
-        { name: "Habitación 4", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Disponible" },
-        { name: "Habitación 5", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Disponible" },
-        { name: "Habitación 6", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Disponible" },
-      ]
-    }
-  },
-  computed: {
-    hotelId() { return this.$route.params.hotelId },
-    plantaId() { return this.$route.params.plantaId },
-    habitacionesFiltradas() {
-      return this.habitaciones.filter(h => h.planta === this.plantaId)
+  export default {
+    components: { AppHeader, SearchBar, HabitacionesCard, AlertasCard },
+    data() {
+      return {
+        alertaVisible: false,
+        habitacionSeleccionada: null,
+        habitaciones: [
+          { name: "Habitación 1", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Ocupado" },
+          { name: "Habitación 2", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Ocupado" },
+          { name: "Habitación 3", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Ocupado" },
+          { name: "Habitación 4", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Disponible" },
+          { name: "Habitación 5", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Disponible" },
+          { name: "Habitación 6", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Disponible" },
+        ]
+      }
+    },
+    computed: {
+      hotelId() { return this.$route.params.hotelId },
+      plantaId() { return this.$route.params.plantaId },
+      habitacionesFiltradas() {
+        return this.habitaciones.filter(h => h.planta === this.plantaId)
+      }
+    },
+    methods: {
+      mostrarAlerta() {
+        this.$refs.alertasDiv.style.display = 'block'
+        this.$refs.ContenedorDiv.style.filter = 'blur(30px)'
+        
+      },
+      ocultarAlerta() {
+        this.$refs.alertasDiv.style.display = 'none'
+        this.$refs.ContenedorDiv.style.filter = 'none'
+      }
     }
   }
-}
 </script>
+
 
 <style scoped>
 .container {
@@ -54,5 +71,27 @@ export default {
   gap: 1rem;
   justify-content: center;
   margin-top: 1rem;
+}
+
+#Alertas {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  width: 100%;
+  justify-items: center;
+  display: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 9998;
 }
 </style>

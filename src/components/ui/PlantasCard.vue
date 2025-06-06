@@ -95,9 +95,8 @@ export default {
     background-color: #35348b;
     opacity: 1;
     background: linear-gradient(135deg, #464677 25%, transparent 25%) -23px 0/ 46px 46px, linear-gradient(225deg, #464677 25%, transparent 25%) -23px 0/ 46px 46px, linear-gradient(315deg, #464677 25%, transparent 25%) 0px 0/ 46px 46px, linear-gradient(45deg, #464677 25%, #40407b 25%) 0px 0/ 46px 46px;
-    margin: 80px;
-    margin-top: 15px;
-    margin-bottom: 5px;
+    margin: 20px 60px 0 60px;
+
 }
 
 #titulo {

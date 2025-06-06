@@ -47,5 +47,6 @@ export default {
   gap: 1rem;
   justify-content: center;
   margin-top: 1rem;
-}
+  padding: 0 250px 0 250px;
+  }
 </style>

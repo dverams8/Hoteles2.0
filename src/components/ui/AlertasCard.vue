@@ -1,14 +1,13 @@
 <template>
-    <!-- <div id="contenedor"> -->
         <div id="alertasCont">
             <div id="parteSuperior">
                 <div id="titulo">Habitación 101</div>
-                <div id="cruz"><i id="iconoCruz" class="fa-solid fa-xmark"></i></div>
+                <div id="cruz" @click="$emit('ocultarAlertaEvento')"><i id="iconoCruz" class="fa-solid fa-xmark"></i></div>
             </div>
             <div id="parteInferior">
                 <div id="alertas">
 
-                    <div class="contenedor-IconAlerta">
+                    <div id="contenedor1" class="noVisto">
                         <div class="AlertaIcono">
                             <i id="iconoAlerta" class="fa-solid fa-circle-exclamation" style="color: #9f0101;"></i>
                         </div>
@@ -17,7 +16,7 @@
                             <div class="AlertaFecha">15/05/2025</div>
                         </div>
                     </div>
-                    <div class="contenedor-IconAlerta">
+                    <div id="contenedor2" class="visto">
                         <div class="AlertaIcono">
                             <i id="iconoAlerta" class="fa-solid fa-circle-exclamation" style="color: #9f0101;"></i>
                         </div>
@@ -26,7 +25,7 @@
                             <div class="AlertaFecha">24/04/2025</div>
                         </div>
                     </div>
-                    <div class="contenedor-IconAlerta">
+                    <div id="contenedor3" class="noVisto">
                         <div class="AlertaIcono">
                             <i id="iconoAlerta" class="fa-solid fa-circle-exclamation" style="color: #9f0101;"></i>
                         </div>
@@ -35,7 +34,7 @@
                             <div class="AlertaFecha">12/02/2025</div>
                         </div>
                     </div>
-                    <div class="contenedor-IconAlerta">
+                    <div id="contenedor4" class="visto">
                         <div class="AlertaIcono">
                             <i id="iconoAlerta" class="fa-solid fa-triangle-exclamation" style="color: #FFD43B;"></i>
                         </div>
@@ -44,7 +43,7 @@
                             <div class="AlertaFecha">02/02/2025</div>
                         </div>
                     </div>
-                    <div class="contenedor-IconAlerta">
+                    <div id="contenedor5" class="noVisto">
                         <div class="AlertaIcono">
                             <i id="iconoAlerta" class="fa-solid fa-triangle-exclamation" style="color: #FFD43B;"></i>
                         </div>
@@ -55,7 +54,7 @@
                     </div>
 
                 </div>
-                <div class="boton">
+                <div class="boton" @click="marcarVisto">
                     <div class="botonIcono">
                         <i id="iconoVisto" class="fa-regular fa-square-check" style="color: #9595aa;"></i>
                     </div>
@@ -63,8 +62,17 @@
                 </div>
             </div>
         </div>
-    <!-- </div> -->
 </template>
+
+<script setup>
+    function marcarVisto() {
+  const contenedores = document.querySelectorAll('div[id^="contenedor"].noVisto')
+  contenedores.forEach(div => {
+    div.classList.remove('noVisto')
+    div.classList.add('visto')
+  })
+}
+</script>
 
 <style scoped>
 
@@ -72,7 +80,6 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        color: #535171;
         font-family: sans-serif;
     }
 
@@ -93,27 +100,19 @@
         font-size: 40px;
     }
 
-    #titulo, #alerta1 > .alertaTexto, #alerta1 > .AlertaFecha {
+    #titulo {
         color: white;
     }
 
-    
-    /* #contenedor {
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        border: 2px solid red;
-        justify-content: center;
-    } */
 
     #alertasCont {
         width: 25%;
         height: 700px;
-        border: 2px solid black;
         background-color: #201444;
         border-radius: 20px;
         padding-left: 15px;
         padding-right: 15px;
+        box-shadow: 0 10px 12px rgba(0, 0, 0, 0.18);
     }
 
     #parteSuperior {
@@ -144,20 +143,26 @@
 
     .AlertaIcono {
         align-items: center;
-        /* border: 2px solid yellow; */
     }
 
     .alerta {
-        /* border: 2px solid yellow; */
         margin-bottom: 15px;
         margin-left: 5px;
     }
 
-    .contenedor-IconAlerta {
+    #alertas > div {
         display: flex;
         align-items: center;
         border-bottom: 2px solid #807b9d;
-        /* border: 2px solid red; */
+
+    }
+
+    .visto {
+        color: #535171;
+    }
+
+    .noVisto {
+        color: white;
     }
     
     .boton {
@@ -172,6 +177,9 @@
         font-size: 20px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
         transition: box-shadow 0.1s ease, background-color 0.3s ease;
+        color: #535171;
+        cursor: pointer;
+
     }
 
     .boton:hover {
@@ -179,5 +187,8 @@
         box-shadow: 0 8px 2400px rgba(0, 0, 0, 0.22);
     }
 
+    #cruz {
+        cursor: pointer;
+    }
 
 </style>
