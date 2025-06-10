@@ -1,7 +1,7 @@
 <template>
         <div id="alertasCont">
             <div id="parteSuperior">
-                <div id="titulo">Habitación 101</div>
+                <div id="titulo">{{ name }}</div>
                 <div id="cruz" @click="$emit('ocultarAlertaEvento')"><i id="iconoCruz" class="fa-solid fa-xmark"></i></div>
             </div>
             <div id="parteInferior">
@@ -64,14 +64,20 @@
         </div>
 </template>
 
-<script setup>
-    function marcarVisto() {
-  const contenedores = document.querySelectorAll('div[id^="contenedor"].noVisto')
-  contenedores.forEach(div => {
-    div.classList.remove('noVisto')
-    div.classList.add('visto')
-  })
-}
+<script>
+
+    export default {
+        props: ['name'],
+        methods: {
+            marcarVisto() {
+                const contenedores = document.querySelectorAll('div[id^="contenedor"].noVisto')
+                contenedores.forEach(div => {
+                    div.classList.remove('noVisto')
+                    div.classList.add('visto')
+                })
+            }
+        }
+    }
 </script>
 
 <style scoped>

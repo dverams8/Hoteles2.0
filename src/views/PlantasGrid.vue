@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <AppHeader />
+    <AppHeader titulo="Plantas"/>
     <SearchBar />
     <div class="card-grid">
       <router-link v-for="planta in plantas" :key="planta.name" :to="`/hoteles/${$route.params.hotelId}/plantas/${planta.name}`"

@@ -11,9 +11,7 @@
     }
 
     #grid {
-        /* border: 2px solid red; */
         height: 100vh;
-        /* width: 100%; */
         position: absolute;
     }
 </style>

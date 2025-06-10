@@ -3,13 +3,14 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import HotelesView from "../views/HotelesGrid.vue";
 import PlantasView from "../views/PlantasGrid.vue";
-import HabitacionesView from "../views/HabitacionesGrid.vue";
+// import HabitacionesView from "../views/HabitacionesGrid.vue";
 // import AlertasCard from "@/components/ui/AlertasCard.vue";
 import GraficaMensual from "@/components/HeaderyComponentesAsi/graficaMensual.vue";
 import GraficaSemanal from "@/components/HeaderyComponentesAsi/graficaSemanal.vue";
 import GraficaDiaria from "@/components/HeaderyComponentesAsi/graficaDiaria.vue";
 import GraficaPersonalizable from "@/components/HeaderyComponentesAsi/graficaPersonalizable.vue";
 import graficaVacia from "../components/HeaderyComponentesAsi/graficaVacia.vue";
+import ConfigCard from "../components/ui/ConfigCard.vue";
 // import PruebaDialogo from "../views/PruebaDialogo.vue";
 const routes = [
   { path: "/", redirect: "/hoteles" },
@@ -17,8 +18,8 @@ const routes = [
   { path: "/hoteles/:hotelId", name: "Plantas", component: PlantasView },
   {
     path: "/hoteles/:hotelId/plantas/:plantaId",
-    name: "habitaciones",
-    component: HabitacionesView,
+    name: "config",
+    component: ConfigCard,
   },
   {
     path: "/mensual",

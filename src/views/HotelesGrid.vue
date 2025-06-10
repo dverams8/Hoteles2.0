@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <AppHeader />
+    <AppHeader titulo="Hoteles"/>
     <SearchBar />
     <AppGridHoteles />
     <div class="card-grid">

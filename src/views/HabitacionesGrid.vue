@@ -1,9 +1,9 @@
 <template>
   <div id="Alertas" ref="alertasDiv">
-    <AlertasCard @ocultarAlertaEvento="ocultarAlerta"/>
+    <AlertasCard :name="habitacionSeleccionada" @ocultarAlertaEvento="ocultarAlerta"/>
   </div>
   <div class="container" ref="ContenedorDiv">
-      <AppHeader />
+      <AppHeader titulo="Habitaciones"/>
       <SearchBar />
   
       <div class="card-grid">
@@ -23,15 +23,14 @@
     components: { AppHeader, SearchBar, HabitacionesCard, AlertasCard },
     data() {
       return {
-        alertaVisible: false,
         habitacionSeleccionada: null,
         habitaciones: [
-          { name: "Habitación 1", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Ocupado" },
-          { name: "Habitación 2", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Ocupado" },
-          { name: "Habitación 3", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Ocupado" },
-          { name: "Habitación 4", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Disponible" },
-          { name: "Habitación 5", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Disponible" },
-          { name: "Habitación 6", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Disponible" },
+          { name: "Habitación 101", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Ocupado" },
+          { name: "Habitación 102", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Ocupado" },
+          { name: "Habitación 103", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Ocupado" },
+          { name: "Habitación 104", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Disponible" },
+          { name: "Habitación 105", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Disponible" },
+          { name: "Habitación 106", luz: "600kW", agua: "600 L", gas: "600 m³", estado: "Disponible" },
         ]
       }
     },
@@ -43,7 +42,8 @@
       }
     },
     methods: {
-      mostrarAlerta() {
+      mostrarAlerta(nombreHabitacion) {
+        this.habitacionSeleccionada = nombreHabitacion
         this.$refs.alertasDiv.style.display = 'block'
         this.$refs.ContenedorDiv.style.filter = 'blur(30px)'
         

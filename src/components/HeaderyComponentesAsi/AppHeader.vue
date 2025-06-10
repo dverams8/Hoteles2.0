@@ -1,17 +1,33 @@
 <template>
     <div id="header">
         <div id="botonesIzquierda">
-            <i id="flecha" class="fa-solid fa-arrow-left"></i>
-            <i id="casa" class="fa-solid fa-house"></i>
+            <router-link to="../">
+                <i id="flecha" class="fa-solid fa-arrow-left"></i>
+            </router-link>
+            <router-link to="/hoteles">
+                <i id="casa" class="fa-solid fa-house"></i>
+            </router-link>
+
         </div>
         <div id="titulo">
-            Hoteles
+            {{ titulo }}
         </div>
         <div id="botonesDerecha">
             <i id="mas" class="fa-solid fa-plus"></i>
         </div>
     </div>
 </template>
+
+<script>
+    export default {
+        props: {
+            titulo: {
+                type: String,
+                default: 'Hoteles'
+            }
+        }
+    }
+</script>
 
 <style scoped>
 
@@ -20,8 +36,6 @@
         padding: 0;
         box-sizing: border-box;
     }
-
-    /*Header*/
 
     #header {
         display: flex;
@@ -32,8 +46,6 @@
         background-color: #201444;
     }
 
-    /*Botones*/
-
     #botonesIzquierda {
         display: flex;
         justify-content: space-between;
@@ -42,8 +54,20 @@
         align-items: center;
     }
 
+    #flecha,
+    #casa {
+        color: white;   
+        transition: none;
+    }
+
+    #flecha:hover, #casa:hover {
+        color: rgb(215, 215, 215);
+        cursor: pointer;
+}
+
     #flecha {
         font-size: 45px;
+        text-decoration: none;
     }
 
     #casa {
@@ -66,5 +90,7 @@
         font-size: 40px;
         font-family: sans-serif;
     }
+
+    
 
 </style>

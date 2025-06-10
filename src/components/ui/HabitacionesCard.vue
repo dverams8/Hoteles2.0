@@ -2,7 +2,7 @@
   <div class="card">
     <div class="header">
       <h1 id="titulo">{{ name }}</h1>
-      <div class="logo">Logo</div>
+      <div class="logo"><img id="logoDelphos" src="../../assets/logo_delphos-removebg-preview.png"></div>
     </div>
 
     <div class="info">
@@ -36,7 +36,7 @@
         </router-link>
       </div>
 
-      <div class="icono" @click="$emit('mostrarAlertaEvento')">
+      <div class="icono" @click="$emit('mostrarAlertaEvento', name)">
         <i class="fa-solid fa-exclamation"></i>      
       </div>
 
@@ -84,7 +84,6 @@ export default {
   }
 
 
-
   .header {
     display: flex;
     justify-content: space-between;
@@ -99,7 +98,14 @@ export default {
   }
 
   .logo i {
-    font-size: 24px;
+    width: 10px;
+  }
+
+  #logoDelphos {
+    width: 70px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
   }
 
   .info {
