@@ -1,65 +1,62 @@
 <template>
-    <div id="contenedor">
-        <div id="superior">
-            <div id="textoCont">
-                <div id="titulo">Alerta {{ id }}</div>
-                <div id="fecha">{{ fecha }}</div>
-            </div>
-            <div id="cruzCont">
-                <div id="cruzContorno" @click="$emit('cerrarAlertaIndividual')">
-                    <div id="cruz"><i id="iconoCruz" class="fa-solid fa-xmark"></i></div>
-                </div>
-            </div>
+  <div id="contenedor">
+    <div id="superior">
+      <div id="textoCont">
+        <div id="titulo">Alerta {{ id }}</div>
+        <div id="fecha">{{ fecha }}</div>
+      </div>
+      <div id="cruzCont">
+        <div id="cruzContorno" @click="$emit('cerrarAlertaIndividual')">
+          <div id="cruz"><i id="iconoCruz" class="fa-solid fa-xmark"></i></div>
         </div>
-        <div id="inferior">
-            <div id="info-cont">
-                <div id="info1" class="info">
-                    <div class="infoTitulo">Tipo de problema:</div>
-                    <div id="infoTexto">Eléctrico</div>
-                </div>
-                <div id="info2" class="info">
-                    <div class="infoTitulo">Pico de consumo:</div>
-                    <div id="infoTexto">250 kW / 222 kW</div>
-                </div>
-                <div id="info3" class="info">
-                    <div class="infoTitulo">Rango horario:</div>
-                    <div id="infoTexto">15:00 - 15:30</div>
-                </div>
-            </div>
-            <div id="boton-cont">
-                <div id="boton" @click="marcarVisto">
-                    <div id="icono">
-                        <i id="check" class="fa-solid fa-square-check"></i>
-                    </div>
-                    <div id="texto">Alerta vista</div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div id="inferior">
+      <div id="info-cont">
+        <div id="info1" class="info">
+          <div class="infoTitulo">Tipo de problema:</div>
+          <div id="infoTexto">Eléctrico</div>
+        </div>
+        <div id="info2" class="info">
+          <div class="infoTitulo">Pico de consumo:</div>
+          <div id="infoTexto">250 kW / 222 kW</div>
+        </div>
+        <div id="info3" class="info">
+          <div class="infoTitulo">Rango horario:</div>
+          <div id="infoTexto">15:00 - 15:30</div>
+        </div>
+      </div>
+      <div id="boton-cont">
+        <div id="boton" @click="marcarVisto">
+          <div id="icono">
+            <i id="check" class="fa-solid fa-square-check"></i>
+          </div>
+          <div id="texto">Alerta vista</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
-
-
 
 <script>
 export default {
-    props: {
-        id: {
-            type: Number,
-            required: true
-        },
-        fecha: {
-            type: String,
-            default: ''
-        }
-    },
-    methods: {
-        marcarVisto() {
-            this.$emit('marcarVisto', this.id)
-            this.$emit('cerrarAlertaIndividual')
-        }
+  props: {
+    id: [String, Number],
+    fecha: String,
+    alertas: {
+      type: Array,
+      default: () => []
     }
+  },
+  methods: {
+    marcarVisto() {
+      this.$emit('marcarVisto', Number(this.id))
+      this.$emit('cerrarAlertaIndividual')
+    }
+  }
 }
 </script>
+
 
 <style scoped>
 #contenedor {
@@ -96,8 +93,6 @@ export default {
     justify-items: left;
     cursor: pointer;
 }
-
-
 
 #inferior {
     height: 80%;

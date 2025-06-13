@@ -8,54 +8,24 @@
         </div>
         <div id="parteInferior">
             <div id="alertas">
-                <div :id="'contenedor1'" :class="alertas[0].visto ? 'visto' : 'noVisto'"
-                    @click="abrirAlertaIndividual(alertas[0])">
+                <div
+                    v-for="alerta in alertas"
+                    :key="alerta.id"
+                    :id="'contenedor' + alerta.id"
+                    :class="alerta.visto ? 'visto' : 'noVisto'"
+                    @click="abrirAlertaIndividual(alerta)"
+                >
                     <div class="AlertaIcono">
-                        <i id="iconoAlerta" class="fa-solid fa-circle-exclamation" style="color: #9f0101;"></i>
+                        <i
+                            id="iconoAlerta"
+                            class="fa-solid"
+                            :class="alerta.id <= 3 ? 'fa-circle-exclamation' : 'fa-triangle-exclamation'"
+                            :style="{ color: alerta.id <= 3 ? '#9f0101' : '#FFD43B' }"
+                        ></i>
                     </div>
-                    <div id="alerta1" class="alerta">
-                        <div class="alertaTexto">{{ alertas[0].texto }}</div>
-                        <div class="AlertaFecha">{{ alertas[0].fecha }}</div>
-                    </div>
-                </div>
-                <div :id="'contenedor2'" :class="alertas[1].visto ? 'visto' : 'noVisto'"
-                    @click="abrirAlertaIndividual(alertas[1])">
-                    <div class="AlertaIcono">
-                        <i id="iconoAlerta" class="fa-solid fa-circle-exclamation" style="color: #9f0101;"></i>
-                    </div>
-                    <div id="alerta2" class="alerta">
-                        <div class="alertaTexto">{{ alertas[1].texto }}</div>
-                        <div class="AlertaFecha">{{ alertas[1].fecha }}</div>
-                    </div>
-                </div>
-                <div :id="'contenedor3'" :class="alertas[2].visto ? 'visto' : 'noVisto'"
-                    @click="abrirAlertaIndividual(alertas[2])">
-                    <div class="AlertaIcono">
-                        <i id="iconoAlerta" class="fa-solid fa-circle-exclamation" style="color: #9f0101;"></i>
-                    </div>
-                    <div id="alerta3" class="alerta">
-                        <div class="alertaTexto">{{ alertas[2].texto }}</div>
-                        <div class="AlertaFecha">{{ alertas[2].fecha }}</div>
-                    </div>
-                </div>
-                <div :id="'contenedor4'" :class="alertas[3].visto ? 'visto' : 'noVisto'"
-                    @click="abrirAlertaIndividual(alertas[3])">
-                    <div class="AlertaIcono">
-                        <i id="iconoAlerta" class="fa-solid fa-triangle-exclamation" style="color: #FFD43B;"></i>
-                    </div>
-                    <div id="alerta4" class="alerta">
-                        <div class="alertaTexto">{{ alertas[3].texto }}</div>
-                        <div class="AlertaFecha">{{ alertas[3].fecha }}</div>
-                    </div>
-                </div>
-                <div :id="'contenedor5'" :class="alertas[4].visto ? 'visto' : 'noVisto'"
-                    @click="abrirAlertaIndividual(alertas[4])">
-                    <div class="AlertaIcono">
-                        <i id="iconoAlerta" class="fa-solid fa-triangle-exclamation" style="color: #FFD43B;"></i>
-                    </div>
-                    <div id="alerta5" class="alerta" @click="abrirAlertaIndividual(alertas[4])">
-                        <div class="alertaTexto">{{ alertas[4].texto }}</div>
-                        <div class="AlertaFecha">{{ alertas[4].fecha }}</div>
+                    <div :id="'alerta' + alerta.id" class="alerta">
+                        <div class="alertaTexto">{{ alerta.texto }}</div>
+                        <div class="AlertaFecha">{{ alerta.fecha }}</div>
                     </div>
                 </div>
             </div>
@@ -68,8 +38,12 @@
         </div>
     </div>
     <div ref="alertaIndividualRef" id="alertaIndividual">
-        <AlertaIndividual :id-alerta="alertaSeleccionada.id" :alertas="alertas"
-            @cerrarAlertaIndividual="cerrarAlertaIndividual" @marcarVisto="marcarUnaComoVista" />
+        <AlertaIndividual
+            :id="alertaSeleccionada.id"
+            :alertas="alertas"
+            @cerrarAlertaIndividual="cerrarAlertaIndividual"
+            @marcarVisto="marcarUnaComoVista"
+        />
     </div>
 </template>
 
@@ -87,24 +61,24 @@ export default {
             },
             alertas: [
                 { id: 1, texto: 'Superación de consumo máximo', fecha: '15/05/2025', visto: false },
-                { id: 2, texto: 'Incremento del consumo de gas inesperado', fecha: '24/04/2025', visto: true },
+                { id: 2, texto: 'Incremento del consumo de gas inesperado', fecha: '24/04/2025', visto: false },
                 { id: 3, texto: 'Superación de la media mensual de agua', fecha: '12/02/2025', visto: false },
-                { id: 4, texto: 'Mantenimiento en la planta.', fecha: '02/02/2025', visto: true },
-                { id: 5, texto: 'Instalación del suelo radiante', fecha: '07/11/2024', visto: false }
+                { id: 4, texto: 'Mantenimiento en la planta.', fecha: '02/02/2025', visto: false },
+                { id: 5, texto: 'Instalación del suelo radiante', fecha: '07/11/2024', visto: false },
             ]
         }
     },
     methods: {
         marcarVisto() {
-            this.alertas.forEach(alerta => alerta.visto = true)
+            this.alertas = this.alertas.map(alerta => ({ ...alerta, visto: true }))
         },
-        
+
         marcarUnaComoVista(id) {
-            const alerta = this.alertas.find(a => a.id === id)
-            if (alerta) {
-                alerta.visto = true
-            }
+            this.alertas = this.alertas.map(alerta =>
+                alerta.id === id ? { ...alerta, visto: true } : alerta
+            )
         },
+
         abrirAlertaIndividual(alerta) {
             this.alertaSeleccionada = {
                 id: alerta.id,
@@ -112,8 +86,8 @@ export default {
             }
             this.$refs.alertaIndividualRef.style.display = 'flex'
             this.$refs.contenedor.style.filter = 'blur(30px)'
-
         },
+
         cerrarAlertaIndividual() {
             this.$refs.alertaIndividualRef.style.display = 'none'
             this.$refs.contenedor.style.filter = ''
@@ -189,7 +163,6 @@ export default {
     padding: 10px;
 }
 
-
 .AlertaIcono {
     align-items: center;
 }
@@ -199,7 +172,7 @@ export default {
     margin-left: 5px;
 }
 
-#alertas>div {
+#alertas > div {
     display: flex;
     align-items: center;
     width: 100%;
@@ -207,7 +180,7 @@ export default {
     cursor: pointer;
 }
 
-#alertas>div:hover {
+#alertas > div:hover {
     background-color: #281955;
 }
 
@@ -233,7 +206,6 @@ export default {
     transition: box-shadow 0.1s ease, background-color 0.3s ease;
     color: #535171;
     cursor: pointer;
-
 }
 
 .boton:hover {
