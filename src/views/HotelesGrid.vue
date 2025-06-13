@@ -1,21 +1,22 @@
 <template>
-  <div class="container">
-    <AppHeader titulo="Hoteles"/>
-    <SearchBar />
-    <AppGridHoteles />
-    <div class="card-grid">
-      <router-link
-        v-for="hotel in hotels"
-        :key="hotel.name"
-        :to="`/hoteles/${hotel.name}`"
-        style="text-decoration: none;"
-      >
-        <HotelCard v-bind="hotel" />
-      </router-link>
+  <q-layout>
+    <div class="container">
+      <AppHeader titulo="Hoteles"/>
+      <SearchBar />
+      <AppGridHoteles />
+      <div class="card-grid">
+        <router-link
+          v-for="hotel in hotels"
+          :key="hotel.name"
+          :to="`/hoteles/${hotel.name}`"
+          style="text-decoration: none;"
+        >
+          <HotelCard v-bind="hotel" />
+        </router-link>
+      </div>
     </div>
-  </div>
+  </q-layout>
 </template>
-
 <script>
 import AppHeader from '@/components/HeaderyComponentesAsi/AppHeader.vue'
 import SearchBar from '@/components/HeaderyComponentesAsi/SearchBar.vue'

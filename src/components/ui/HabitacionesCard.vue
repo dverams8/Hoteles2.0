@@ -22,7 +22,7 @@
       </div>
 
       <div class="info-item ocupacion">
-        <span class="dot"></span>
+        <span ref="circulo" class="dot"></span>
         <p>Ocupación:</p>
         <p>{{ estado }}</p>
       </div>
@@ -40,7 +40,7 @@
         <i class="fa-solid fa-exclamation"></i>      
       </div>
 
-      <div class="icono">
+      <div class="icono" @click="$emit('mostrarConfigEvento', name)">
         <i class="fa-solid fa-gear"></i>
       </div>
 
@@ -51,6 +51,26 @@
 <script>
 export default {
   props: ['name', 'estado', 'luz', 'agua', 'gas', 'hotelId', 'plantaId'],
+
+  methods: {
+    cambiarColorCirculo(nuevoEstado) {
+      const circulo = this.$refs.circulo
+      switch (nuevoEstado) {
+        case 'Disponible':
+          circulo.style.backgroundColor = 'green'
+          break
+        case 'Ocupada': 
+          circulo.style.backgroundColor = 'red'
+          break
+        case 'En Mantenimiento': 
+          circulo.style.backgroundColor = 'orange'
+          break
+        case 'Reservada': 
+          circulo.style.backgroundColor = 'blue'
+          break
+      }
+    }
+  }
 }
 </script>
 
@@ -135,7 +155,7 @@ export default {
   .ocupacion .dot {
     width: 16px;
     height: 16px;
-    background-color: red;
+    background-color: green;
     border-radius: 50%;
   }
 
