@@ -10,6 +10,7 @@ import GraficaPersonalizable from "@/components/HeaderyComponentesAsi/graficaPer
 import graficaVacia from "../components/HeaderyComponentesAsi/graficaVacia.vue";
 import HotelesGrid from "../views/HotelesGrid.vue";
 // import AlertaIndividual from "../components/ui/AlertaIndividual.vue";
+// import NuevoLimite from "../components/ui/NuevoLimite.vue";
 const routes = [
   { path: "/", redirect: "/hoteles" },
   { path: "/hoteles", name: "Hoteles", component: HotelesGrid },

@@ -2,8 +2,11 @@
     <div ref="contenedor" id="contenedor">
         <div id="superior">
             <div id="titulo">{{ localName }}</div>
-            <div id="cruz" @click="$emit('ocultarConfigEvento')"><i id="iconoCruz" class="fa-solid fa-xmark"></i></div>
+            <div id="cruz" @click="$emit('ocultarConfigEvento')">
+                <i id="iconoCruz" class="fa-solid fa-xmark"></i>
+            </div>
         </div>
+
         <div id="inferior">
             <div id="opciones">
                 <div id="nombre">
@@ -20,40 +23,45 @@
                     </select>
                 </div>
             </div>
+
             <div id="datos">
                 <div id="luz">
                     <div class="datos-texto">Consumo</div>
                     <div class="datos-icono"><i id="rayo-icon" class="fa-solid fa-bolt"></i></div>
                     <div class="barra-cont">
-                        <div id="barra-luz" class="barra"></div>
-                        <div class="barra-info">90%</div>
+                        <div id="barra-luz" class="barra" :style="{ width: porcentajeLuz + '%' }"></div>
+                        <div class="barra-info">{{ porcentajeLuz }}%</div>
                     </div>
-                    <div class="info">100kW / 222kW</div>
-                    <div class="limite">Nuevo límite</div>
+                    <div class="info">{{ limites.luz.actual }}kW / {{ limites.luz.valor }}kW</div>
+                    <div class="limite" @click="abrirModal('luz')">Nuevo límite</div>
                 </div>
+
                 <div id="agua">
                     <div class="datos-texto">Agua</div>
                     <div class="datos-icono"><i id="agua-icon" class="fa-solid fa-droplet"></i></div>
                     <div class="barra-cont">
-                        <div id="barra-agua" class="barra"></div>
-                        <div class="barra-info">35%</div>
+                        <div id="barra-agua" class="barra" :style="{ width: porcentajeAgua + '%' }"></div>
+                        <div class="barra-info">{{ porcentajeAgua }}%</div>
                     </div>
-                    <div class="info">100L / 196L</div>
-                    <div class="limite">Nuevo Límite</div>
+                    <div class="info">{{ limites.agua.actual }}L / {{ limites.agua.valor }}L</div>
+                    <div class="limite" @click="abrirModal('agua')">Nuevo límite</div>
                 </div>
+
                 <div id="gas">
                     <div class="datos-texto">Gas</div>
                     <div class="datos-icono"><i id="gas-icon" class="fa-solid fa-fire-flame-curved"></i></div>
                     <div class="barra-cont">
-                        <div id="barra-gas" class="barra"></div>
-                        <div class="barra-info">63%</div>
+                        <div id="barra-gas" class="barra" :style="{ width: porcentajeGas + '%' }"></div>
+                        <div class="barra-info">{{ porcentajeGas }}%</div>
                     </div>
-                    <div class="info">100m³ / 125m³</div>
-                    <div class="limite">Nuevo límite</div>
+                    <div class="info">{{ limites.gas.actual }}m³ / {{ limites.gas.valor }}m³</div>
+                    <div class="limite" @click="abrirModal('gas')">Nuevo límite</div>
                 </div>
             </div>
+
             <div id="informe-texto">Informe de avería:</div>
             <textarea id="informe" class="informe" placeholder="Escriba su texto aquí..."></textarea>
+
             <div id="botones">
                 <div id="enviar" @click="enviarInforme">
                     <div class="boton-icono"><i id="enviar-icon" class="fa-solid fa-paper-plane"></i></div>
@@ -64,28 +72,46 @@
                     <div class="boton-texto">Guardar</div>
                 </div>
             </div>
+
             <div id="mensaje" v-if="mostrarMensaje">{{ mensaje }}</div>
         </div>
+
+        <NuevoLimite v-if="mostrarModal" :tipo="tipoRecursoSeleccionado"
+            :limiteActual="limites[tipoRecursoSeleccionado].valor" @guardar="guardarNuevoLimite"
+            @cerrar="cerrarModal" />
     </div>
 </template>
 
 <script>
+import NuevoLimite from './NuevoLimite.vue'
+
 export default {
+    components: { NuevoLimite },
     props: ['name', 'estado'],
     data() {
         return {
             localName: this.name,
+            estadoSeleccionado: this.estadoToValue(this.estado),
             mensaje: '',
             mostrarMensaje: false,
-            estadoSeleccionado: this.estadoToValue(this.estado)
+            limites: {
+                luz: { valor: 222, actual: 100 },
+                agua: { valor: 196, actual: 100 },
+                gas: { valor: 125, actual: 100 }
+            },
+            mostrarModal: false,
+            tipoRecursoSeleccionado: null
         }
     },
-    watch: {
-        name(nuevoValor) {
-            this.localName = nuevoValor
+    computed: {
+        porcentajeLuz() {
+            return this.calcularPorcentaje(this.limites.luz.actual, this.limites.luz.valor)
         },
-        estado(nuevoEstado) {
-            this.estadoSeleccionado = this.estadoToValue(nuevoEstado)
+        porcentajeAgua() {
+            return this.calcularPorcentaje(this.limites.agua.actual, this.limites.agua.valor)
+        },
+        porcentajeGas() {
+            return this.calcularPorcentaje(this.limites.gas.actual, this.limites.gas.valor)
         }
     },
     methods: {
@@ -99,27 +125,31 @@ export default {
             }
         },
         guardarInforme() {
-            this.$emit('GuardarInforme', {
-                nombre: this.localName,
-                estado: Number(this.estadoSeleccionado)
-            })
-            setTimeout(() => {
-
-                this.mensaje = 'El informe se ha guardado correctamente'
-                this.mostrarMensaje = true
-                setTimeout(() => {
-                    this.mostrarMensaje = false
-                }, 5000)
-            }, 100)
-
+            this.$emit('GuardarInforme', { nombre: this.localName, estado: Number(this.estadoSeleccionado) })
+            this.mostrarMensajeTemporal('El informe se ha guardado correctamente')
         },
-
         enviarInforme() {
-            this.mensaje = 'El informe se ha enviado correctamente'
+            this.mostrarMensajeTemporal('El informe se ha enviado correctamente')
+        },
+        mostrarMensajeTemporal(texto) {
+            this.mensaje = texto
             this.mostrarMensaje = true
-            setTimeout(() => {
-                this.mostrarMensaje = false
-            }, 5000)
+            setTimeout(() => (this.mostrarMensaje = false), 5000)
+        },
+        abrirModal(tipo) {
+            this.tipoRecursoSeleccionado = tipo
+            this.mostrarModal = true
+        },
+        cerrarModal() {
+            this.mostrarModal = false
+            this.tipoRecursoSeleccionado = null
+        },
+        guardarNuevoLimite(nuevoValor) {
+            this.limites[this.tipoRecursoSeleccionado].valor = nuevoValor
+            this.cerrarModal()
+        },
+        calcularPorcentaje(actual, valor) {
+            return valor > 0 ? Math.min(100, Math.round((actual / valor) * 100)) : 0
         }
     }
 }
@@ -127,10 +157,9 @@ export default {
 
 <style scoped>
 #contenedor {
-    width: 600px;
-    height: 1010px;
     background-color: #191740;
     border-radius: 20px;
+    width: 650px;
 }
 
 #cruz {
@@ -184,6 +213,7 @@ export default {
     font-size: 13px;
     padding-left: 8px;
     color: white;
+    cursor: pointer;
 }
 
 #datos {
@@ -204,7 +234,7 @@ export default {
 }
 
 .datos-texto {
-    font-size: 17px;
+    font-size: 13px;
 }
 
 .datos-icono {
